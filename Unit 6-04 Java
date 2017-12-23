@@ -1,0 +1,108 @@
+package address;
+
+/****************************************************************************
+ *
+ * Created by: David Wang
+ * Created on : Dec, 2017
+ * Created for : ICS3UR
+ * Daily Assignment - Unit6-04
+ * This program displays an example of a structure with two enumerated types
+ *
+ ****************************************************************************/
+
+import java.util.Scanner;
+
+public class mailingAddressEnumerate 
+{
+    public static enum StreetTypeList
+         {
+              Street, Boulevard, Road, Avenue, Crescent;
+          }
+
+     public static enum ProvinceList
+         {
+              ON, QC, NL, PE, NS, NB, MB, SK, AB, BC, YT, NT, NU;
+          }   
+     
+    public static void main(String[] args)
+    {              
+         String name="", unitNumber="", streetNumber="", streetName="",
+        		 streetType="", city="", province="", postalCode="";
+         Scanner input = new Scanner(System.in);
+         System.out.println("Enter your name");
+         name = input.nextLine();
+         System.out.println("Enter your street number ");
+         streetNumber = input.nextLine();
+         System.out.println("Enter your street name");
+         streetName = input.nextLine();
+
+         
+         Boolean matchingStreetTypeFound = false;
+         
+         while (!matchingStreetTypeFound)
+         {
+             System.out.println("Choose your street type: Street, Boulevard, Road, Avenue, Crescent");
+             System.out.println("Enter your street type");     
+             streetType = input.nextLine();
+             
+             for (StreetTypeList StreetT: StreetTypeList.values()) 
+             {
+                   if (StreetT.name().equalsIgnoreCase(streetType)) 
+                   {
+                	   matchingStreetTypeFound = true;
+                	   break;
+                    }
+              }
+         }
+
+         System.out.println("Enter your city");                   
+         city = input.nextLine();
+         //province = province.toUpperCase();        
+
+         Boolean matchingProvinceFound = false;
+         
+         while (!matchingProvinceFound)
+         {
+             System.out.println("Enter the abbreviation of the province or territory in this list: AB (Alberta), BC (British Columbia), MB (Manitoba), NB (New Brunswick), NL (Newfoundland and Labrador), NT (Northwest Territories), NS (Nova Scotia), NU (Nunavut), ON (Ontario), PE (Prince Edward Island), QC (Quebec), SK (Saskatchewan)");
+             System.out.println("Enter your province or territory");     
+             province = input.nextLine();
+             
+             for (ProvinceList P: ProvinceList.values()) 
+             {
+                   if (P.name().equalsIgnoreCase(province)) 
+                   {
+                	   matchingProvinceFound = true;
+                	   break;
+                    }
+              }
+         }                                      
+         System.out.println("Enter your postal code");
+         postalCode = input.nextLine();  
+
+         mailingAddress address = new mailingAddress();      
+         address.name = name;
+         address.streetNumber = streetNumber;
+         address.streetName = streetName;
+         address.streetType = streetType;
+         address.city = city;
+         address.province = province;
+         address.postalCode = postalCode;
+      
+         System.out.println("\n");
+         System.out.println(address.name);
+         System.out.println(address.streetNumber + ' ' + address.streetName + ' ' + address.streetType);
+         System.out.println(address.city + ' ' + address.province + ' ' + address.postalCode);        
+    }
+}
+
+class mailingAddress
+
+{   
+    String name;
+    String streetNumber;   
+    String streetName;
+    String streetType;
+    String city;
+    String province;
+    String postalCode;     
+}
